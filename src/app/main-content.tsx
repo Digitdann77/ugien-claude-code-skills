@@ -37,9 +37,9 @@ export function MainContent({ user, project }: MainContentProps) {
     <FileSystemProvider initialData={project?.data}>
       <ChatProvider projectId={project?.id} initialMessages={project?.messages}>
         <div className="h-screen w-screen overflow-hidden bg-neutral-50">
-          <ResizablePanelGroup direction="horizontal" className="h-full">
+          <ResizablePanelGroup id="main-layout" direction="horizontal" className="h-full">
             {/* Left Panel - Chat */}
-            <ResizablePanel defaultSize={35} minSize={25} maxSize={50}>
+            <ResizablePanel id="chat-panel" defaultSize={35} minSize={25} maxSize={50}>
               <div className="h-full flex flex-col bg-white">
                 {/* Chat Header */}
                 <div className="h-14 flex items-center px-6 border-b border-neutral-200/60">
@@ -53,14 +53,15 @@ export function MainContent({ user, project }: MainContentProps) {
               </div>
             </ResizablePanel>
 
-            <ResizableHandle className="w-[1px] bg-neutral-200 hover:bg-neutral-300 transition-colors" />
+            <ResizableHandle id="main-handle" className="w-[1px] bg-neutral-200 hover:bg-neutral-300 transition-colors" />
 
             {/* Right Panel - Preview/Code */}
-            <ResizablePanel defaultSize={65}>
+            <ResizablePanel id="right-panel" defaultSize={65}>
               <div className="h-full flex flex-col bg-white">
                 {/* Top Bar */}
                 <div className="h-14 border-b border-neutral-200/60 px-6 flex items-center justify-between bg-neutral-50/50">
                   <Tabs
+                    id="view-tabs"
                     value={activeView}
                     onValueChange={(v) =>
                       setActiveView(v as "preview" | "code")
@@ -82,6 +83,7 @@ export function MainContent({ user, project }: MainContentProps) {
                     </div>
                   ) : (
                     <ResizablePanelGroup
+                      id="code-editor-layout"
                       direction="horizontal"
                       className="h-full"
                     >

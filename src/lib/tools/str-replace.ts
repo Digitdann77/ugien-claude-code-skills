@@ -1,3 +1,4 @@
+import { asSchema } from "ai";
 import { z } from "zod";
 import { VirtualFileSystem } from "@/lib/file-system";
 
@@ -13,9 +14,9 @@ const TextEditorParameters = z.object({
 
 export const buildStrReplaceTool = (fileSystem: VirtualFileSystem) => {
   return {
-    id: "str_replace_editor" as const,
-    args: {},
-    parameters: TextEditorParameters,
+    description:
+      "View, create, or edit files using str_replace, insert, or create commands.",
+    inputSchema: asSchema(TextEditorParameters),
     execute: async ({
       command,
       path,
